@@ -30,25 +30,29 @@ Output: 23
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
-    public int rangeSumBST(TreeNode root, int L, int R) {
-        if(root == null)
-            return 0;
-        int sum[] = new int[1];
-        rangeSum(root, L, R, sum);
-        return sum[0];
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        int[] result = new int[1];
+        rangeSum(root, low, high, result);
+        return result[0];
     }
-    
-    public void rangeSum(TreeNode root, int L, int R, int[] sum){
-        if(root != null){
-            rangeSum(root.left, L, R, sum);
-            if(root.val >= L && root.val <= R)
-                sum[0] += root.val;
-            rangeSum(root.right, L, R, sum);
-        }
+
+    private void rangeSum(TreeNode node, int low, int high, int[] result) {
+        if(node.val >= low && node.val <= high)
+           result[0] += node.val;
+        if(node.left != null)
+           rangeSum(node.left, low, high, result);
+        if(node.right != null)
+           rangeSum(node.right, low, high, result);
     }
 }
 ```
