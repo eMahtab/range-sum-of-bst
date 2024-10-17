@@ -5,6 +5,7 @@ Given the root node of a binary search tree, return the sum of values of all nod
 
 The binary search tree is guaranteed to have unique values.
 
+!["BST"](range-sum-bst.png?raw=true)
 ```
 Example 1:
 
