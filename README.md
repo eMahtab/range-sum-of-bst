@@ -21,8 +21,7 @@ Output: 23
 1. The number of nodes in the tree is at most 10000.
 2. The final answer is guaranteed to be less than 2^31.
 
-## Implementation :
-
+## Implementation : Considering the input as just Binary Tree
 ```java
 /**
  * Definition for a binary tree node.
@@ -52,6 +51,41 @@ class Solution {
         if(node.left != null)
            rangeSum(node.left, low, high, result);
         if(node.right != null)
+           rangeSum(node.right, low, high, result);
+    }
+}
+```
+
+## Implementation 2 : Utilizing the fact that we are given a BST, reducing the search space
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        int[] result = new int[1];
+        rangeSum(root, low, high, result);
+        return result[0];
+    }
+
+    private void rangeSum(TreeNode node, int low, int high, int[] result) {
+        if(node.val >= low && node.val <= high)
+           result[0] += node.val;
+        if(node.left != null && node.val > low)
+           rangeSum(node.left, low, high, result);
+        if(node.right != null && node.val < high)
            rangeSum(node.right, low, high, result);
     }
 }
